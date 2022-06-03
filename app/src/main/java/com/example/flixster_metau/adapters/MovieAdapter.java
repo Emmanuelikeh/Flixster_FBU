@@ -78,25 +78,39 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
 
-            int radius = 20; // corner radius, higher value = more rounded
+            int radius = 25; // corner radius, higher value = more rounded
 //            int margin = 10; // crop margin, set to 0 for corners with no crop
 
              String imageUrl;
              if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                  imageUrl = movie.getBackdropPath();
+                 Glide.with(context)
+                         .load(imageUrl)
+//                         .centerCrop()
+//                    .override(Target.SIZE_ORIGINAL* 2, Target.SIZE_ORIGINAL*2)
+                         .transform(new RoundedCorners(radius))
+                         .placeholder(R.drawable.backimg)
+                         .into(ivPoster);
              }
              else{
                  imageUrl = movie.getPosterPath();
+                 Glide.with(context)
+                         .load(imageUrl)
+                         .fitCenter()
+//                    .override(Target.SIZE_ORIGINAL* 2, Target.SIZE_ORIGINAL*2)
+                         .transform(new RoundedCorners(radius))
+                         .placeholder(R.drawable.image)
+                         .into(ivPoster);
              }
 
 
-            Glide.with(context)
-                    .load(imageUrl)
-                    .centerCrop()
-//                    .override(Target.SIZE_ORIGINAL* 2, Target.SIZE_ORIGINAL*2)
-                    .transform(new RoundedCorners(radius))
-                    .placeholder(R.drawable.image)
-                    .into(ivPoster);
+//            Glide.with(context)
+//                    .load(imageUrl)
+//                    .centerCrop()
+////                    .override(Target.SIZE_ORIGINAL* 2, Target.SIZE_ORIGINAL*2)
+//                    .transform(new RoundedCorners(radius))
+//                    .placeholder(R.drawable.image)
+//                    .into(ivPoster);
 
 
         }
